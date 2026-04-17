@@ -73,10 +73,10 @@ public:
     void queryI2CAddress();
     void setI2CAddress(uint8_t addr7bit);
 
-    //software calibration not implemented yet
-    void calibrateWhite();
-    void calibrateBlack();
-    GY33_Raw getCalibrated();
+    // TODO: Software calibration (raw value correction) not yet implemented
+    // void calibrateWhite();
+    // void calibrateBlack();
+    // GY33_Raw getCalibrated();
 
 private:
     Stream *_serial;
@@ -118,10 +118,10 @@ public:
     void setLED(uint8_t power);
     void calibrateWhiteBalance();
 
-    //software calibration not implemented yet
-    void calibrateWhite();
-    void calibrateBlack();
-    GY33_Raw getCalibrated();
+    // TODO: Software calibration (raw value correction) not yet implemented
+    // void calibrateWhite();
+    // void calibrateBlack();
+    // GY33_Raw getCalibrated();
 
 private:
     uint8_t _addr;
