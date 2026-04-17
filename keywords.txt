@@ -1,0 +1,50 @@
+#######################################
+# Syntax Coloring Map For GY33
+#######################################
+
+# Classes / Data types (KEYWORD1)
+GY33_I2C	KEYWORD1
+GY33_UART	KEYWORD1
+
+# Structs
+GY33_Raw	KEYWORD1
+GY33_LCC	KEYWORD1
+GY33_Processed	KEYWORD1
+
+# Main methods (KEYWORD2)
+begin	KEYWORD2
+update	KEYWORD2
+colour	KEYWORD2
+getRaw	KEYWORD2
+getLCC	KEYWORD2
+getProcessed	KEYWORD2
+
+# Configuration
+setLED	KEYWORD2
+setOutput	KEYWORD2
+setBaudRate	KEYWORD2
+setIntegrationTime	KEYWORD2
+saveToFlash	KEYWORD2
+calibrateWhiteBalance	KEYWORD2
+
+# Query methods
+queryRaw	KEYWORD2
+queryLCC	KEYWORD2
+queryProcessed	KEYWORD2
+queryI2CAddress	KEYWORD2
+setI2CAddress	KEYWORD2
+
+# Constants (LITERAL1)
+OUTPUT_OFF	LITERAL1
+OUTPUT_PROCESSED	LITERAL1
+OUTPUT_LCC	LITERAL1
+OUTPUT_RAW	LITERAL1
+OUTPUT_PAUSE	LITERAL1
+OUTPUT_RESUME	LITERAL1
+BAUD_9600	LITERAL1
+BAUD_115200	LITERAL1
+ITIME_700	LITERAL1
+ITIME_154	LITERAL1
+ITIME_100	LITERAL1
+ITIME_24	LITERAL1
+ITIME_2_4	LITERAL1
