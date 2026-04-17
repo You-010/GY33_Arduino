@@ -1,0 +1,25 @@
+# Build and temporary files
+*.o
+*.d
+*.elf
+*.bin
+*.hex
+.pio
+.vscode
+.vs
+
+# Arduino IDE / PlatformIO junk
+**/__MACOSX
+**/.DS_Store
+**/*.tmp
+**/*.bak
+**/*.swp
+
+# Example-specific (optional but nice)
+examples/*/build/
+examples/*/.vs/
+examples/*/*.ino.cpp
+
+# Logs and caches
+*.log
+.cache
