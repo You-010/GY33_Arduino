@@ -1,14 +1,14 @@
 # GY-33 Arduino Library
-An easy-to-use Arduino library for the GY-33 (TCS34725) Colour Sensor module.  
+An easy-to-use Arduino library for the GY-33 (TCS34725) Colour Sensor module. This library is a C++ port of the [MicroPython GY-33 library](https://github.com/QuirkyCort/micropython-gy33) by QuirkyCort. 
 This is for connecting to the GY33's microcontroller (typically STM32), not for direct connection to the TCS34725 color sensor.  
 This library supports both **I2C** and **UART** (Serial) communication modes.
 
 ---
 
 ## Credits & Technical Documentation
-This library is a C++ port of the **MicroPython GY-33 library** by **QuirkyCort**. 
+This library is a C++ port of the original logic developed by **QuirkyCort**. 
 
-Since the GY-33 documentation is often difficult to find in English, please refer to the original repository here: https://github.com/QuirkyCort/micropython-gy33/tree/main
+Since the GY-33 documentation is often difficult to find in English, please refer to the original repository here: [micropython-gy33](https://github.com/QuirkyCort/micropython-gy33/tree/main)
 
 Also:  
 [UART Mode overview](https://github.com/QuirkyCort/micropython-gy33/blob/main/gy33-uart/README.md)  
