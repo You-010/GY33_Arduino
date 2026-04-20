@@ -1,0 +1,4 @@
+theme: jekyll-theme-cayman
+title: GY33 Arduino Library
+description: Arduino library for the GY-33 (TCS34725) colour sensor module via I2C and UART.
+show_downloads: true
