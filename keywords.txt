@@ -5,11 +5,14 @@
 # Classes / Data types (KEYWORD1)
 GY33_I2C	KEYWORD1
 GY33_UART	KEYWORD1
+GY33_Base	KEYWORD1
+GY33_Calibrator KEYWORD1
 
 # Structs
 GY33_Raw	KEYWORD1
 GY33_LCC	KEYWORD1
 GY33_Processed	KEYWORD1
+GY33_Calibration	KEYWORD1
 
 # Main methods (KEYWORD2)
 begin	KEYWORD2
@@ -18,6 +21,13 @@ colour	KEYWORD2
 getRaw	KEYWORD2
 getLCC	KEYWORD2
 getProcessed	KEYWORD2
+start	KEYWORD2
+
+# Calibration Methods
+calibrateBlack	KEYWORD2
+getZeroed	KEYWORD2
+setCalibration	KEYWORD2
+getCalibrated	KEYWORD2
 
 # Configuration
 setLED	KEYWORD2
@@ -26,13 +36,16 @@ setBaudRate	KEYWORD2
 setIntegrationTime	KEYWORD2
 saveToFlash	KEYWORD2
 calibrateWhiteBalance	KEYWORD2
+setI2CAddress	KEYWORD2
 
 # Query methods
 queryRaw	KEYWORD2
 queryLCC	KEYWORD2
 queryProcessed	KEYWORD2
+queryZeroed	KEYWORD2
+queryCalibrated	KEYWORD2
 queryI2CAddress	KEYWORD2
-setI2CAddress	KEYWORD2
+getI2CAddress	KEYWORD2
 
 # Constants (LITERAL1)
 OUTPUT_OFF	LITERAL1

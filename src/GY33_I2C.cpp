@@ -94,9 +94,5 @@ GY33_Processed GY33_I2C::queryProcessed() {
     return _processed;
 }
 
-void GY33_I2C::setLED(uint8_t p) { writeData(0x10, 0xA0 - ((p > 10 ? 10 : p) * 16)); }
+void GY33_I2C::setLED(uint8_t p, bool save) { writeData(0x10, 0xA0 - ((p > 10 ? 10 : p) * 16)); }
 void GY33_I2C::calibrateWhiteBalance() { writeData(0x10, readData(0x10) | 0x01); }
-
-// void GY33_I2C::calibrateWhite() {}
-// void GY33_I2C::calibrateBlack() {}
-// GY33_Raw GY33_I2C::getCalibrated() {}

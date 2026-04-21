@@ -108,7 +108,3 @@ void GY33_UART::queryProcessed() { sendCommand(0xA5, 0x54); }
 
 void GY33_UART::queryI2CAddress() { sendCommand(0xAA, 0xF5); }
 void GY33_UART::setI2CAddress(uint8_t addr7bit) { sendCommand(0xAA, addr7bit << 1); }
-
-// void GY33_UART::calibrateWhite() {}
-// void GY33_UART::calibrateBlack() {}
-// GY33_UART::RawData GY33_UART::getCalibrated() {}
