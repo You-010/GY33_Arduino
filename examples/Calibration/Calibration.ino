@@ -79,7 +79,7 @@ void loop() {
             Serial.print(F(" B: ")); Serial.println(cal.b);
             
             lastSampleTime = millis();
-            samples--;
+            samples--; 
         }
     }
 }
