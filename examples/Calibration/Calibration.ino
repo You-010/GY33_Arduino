@@ -72,14 +72,14 @@ void loop() {
 
     if (samples && (millis() - lastSampleTime >= 1000)) {
         if (sensor.update()) {
-        GY33_Raw cal = sensor.getCalibrated();
-        Serial.print(F("Sample ")); Serial.print(6 - samples);
-        Serial.print(F("/5 -> R: ")); Serial.print(cal.r);
-        Serial.print(F(" G: ")); Serial.print(cal.g);
-        Serial.print(F(" B: ")); Serial.println(cal.b);
-        
-        lastSampleTime = millis();
-        samples--;
-      }
+            GY33_Raw cal = sensor.getCalibrated();
+            Serial.print(F("Sample ")); Serial.print(6 - samples);
+            Serial.print(F("/5 -> R: ")); Serial.print(cal.r);
+            Serial.print(F(" G: ")); Serial.print(cal.g);
+            Serial.print(F(" B: ")); Serial.println(cal.b);
+            
+            lastSampleTime = millis();
+            samples--;
+        }
     }
 }
