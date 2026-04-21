@@ -27,12 +27,16 @@
 
 #include <GY33_Calibrator.h>
 GY33_Calibrator helper(sensor);
+int samples = 0;
+uint32_t lastSampleTime = 0;
 
 void runCalibration() {
     // check connection first
-    if (sensor.update()) { helper.start(); }
-    else { Serial.println(F("\n[!] ERROR: Sensor not responding."));
-           Serial.println(F("Please check wiring, power and I2C address.")); 
+    if (sensor.update()) { 
+        sensor.setCalibration(helper.start()); 
+        samples = 5; lastSampleTime = millis(); 
+    } else { Serial.println(F("\n[!] ERROR: Sensor not responding."));
+        Serial.println(F("Please check wiring, power and I2C address.")); 
     }
     while(Serial.available()) Serial.read(); // Flush buffer
     Serial.println(F(">>> Send any character to RESTART calibration."));
@@ -45,7 +49,7 @@ void setup() {
     #if GY33_PROTOCOL == 1
         // UART Setup
         // Adjust pins for your specific board!
-        Serial1.begin(9600, SERIAL_8N1, 16, 17); 
+        Serial1.begin(9600, SERIAL_8N1, 8, 9); 
         sensor.begin();
         Serial.println(F("GY-33 UART Calibration Started"));
     #else
@@ -53,7 +57,7 @@ void setup() {
         // For ESP32: you can define the sda and scl pins and use sensor.begin(SDA,SCL); 
         //            sensor.begin() will use hardware defaults
         // For Uno/Nano: sensor.begin();
-        sensor.begin(8,9);
+        sensor.begin();
         Serial.println(F("GY-33 I2C Calibration Started"));
     #endif
 
@@ -64,5 +68,18 @@ void loop() {
     if (Serial.available()) {
         while(Serial.available()) Serial.read(); // Flush buffer
         runCalibration();
+    }
+
+    if (samples && (millis() - lastSampleTime >= 1000)) {
+        if (sensor.update()) {
+        GY33_Raw cal = sensor.getCalibrated();
+        Serial.print(F("Sample ")); Serial.print(6 - samples);
+        Serial.print(F("/5 -> R: ")); Serial.print(cal.r);
+        Serial.print(F(" G: ")); Serial.print(cal.g);
+        Serial.print(F(" B: ")); Serial.println(cal.b);
+        
+        lastSampleTime = millis();
+        samples--;
+      }
     }
 }
