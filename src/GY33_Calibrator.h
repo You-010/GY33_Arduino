@@ -103,9 +103,9 @@ private:
         Serial.println(F("Copy and paste this into your project setup:\n"));
         
         Serial.println(F("GY33_Calibration myCal = {"));
-        Serial.print(F("  ")); Serial.print(c.r_leak_g, 4); Serial.print(F(", ")); Serial.println(c.r_leak_b, 4);
-        Serial.print(F("  ")); Serial.print(c.g_leak_r, 4); Serial.print(F(", ")); Serial.println(c.g_leak_b, 4);
-        Serial.print(F("  ")); Serial.print(c.b_leak_r, 4); Serial.print(F(", ")); Serial.println(c.b_leak_g, 4);
+        Serial.print(F("  ")); Serial.print(c.r_leak_g, 4); Serial.print(F(", ")); Serial.println(c.r_leak_b, 4); Serial.print(F(", "));
+        Serial.print(F("  ")); Serial.print(c.g_leak_r, 4); Serial.print(F(", ")); Serial.println(c.g_leak_b, 4); Serial.print(F(", "));
+        Serial.print(F("  ")); Serial.print(c.b_leak_r, 4); Serial.print(F(", ")); Serial.println(c.b_leak_g, 4); Serial.print(F(", "));
         Serial.print(F("  ")); Serial.print(c.r_scale, 4);  Serial.print(F(", ")); 
         Serial.print(c.g_scale, 4);  Serial.print(F(", ")); 
         Serial.println(c.b_scale, 4);
