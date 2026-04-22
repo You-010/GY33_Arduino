@@ -30,7 +30,7 @@ public:
         // 1. BLACK CALIBRATION
         prompt(F("Step 1: BLACK - Cover the sensor completely or place in a dark box"));
         waitForNewData();
-        _s->calibrateBlack();
+        GY33_Raw blk = _s->calibrateBlack();
         Serial.println(F("Black level stored."));
 
         // 2. RED CROSSTALK
@@ -70,7 +70,7 @@ public:
         cal.g_scale = 255.0f / g_cln;
         cal.b_scale = 255.0f / b_cln;
 
-        printResults(cal);
+        printResults(cal,blk);
         return cal;
     }
 
@@ -98,14 +98,23 @@ private:
         }
     }
 
-    void printResults(const GY33_Calibration &c) {
+    void printResults(const GY33_Calibration &c, const GY33_Raw &b) {
         Serial.println(F("\n--- Calibration Complete! ---"));
         Serial.println(F("Copy and paste this into your project setup:\n"));
+
+        Serial.print(F("GY33_Raw myOffsets = { "));
+        Serial.print(b.r); Serial.print(F(", "));
+        Serial.print(b.g); Serial.print(F(", "));
+        Serial.print(b.b); Serial.print(F(", "));
+        Serial.print(b.c); Serial.println(F(" };"));
+        Serial.println(F("sensor.calibrateBlack(myOffsets);"));
+        
+        Serial.println();
         
         Serial.println(F("GY33_Calibration myCal = {"));
-        Serial.print(F("  ")); Serial.print(c.r_leak_g, 4); Serial.print(F(", ")); Serial.println(c.r_leak_b, 4); Serial.print(F(", "));
-        Serial.print(F("  ")); Serial.print(c.g_leak_r, 4); Serial.print(F(", ")); Serial.println(c.g_leak_b, 4); Serial.print(F(", "));
-        Serial.print(F("  ")); Serial.print(c.b_leak_r, 4); Serial.print(F(", ")); Serial.println(c.b_leak_g, 4); Serial.print(F(", "));
+        Serial.print(F("  ")); Serial.print(c.r_leak_g, 4); Serial.print(F(", ")); Serial.print(c.r_leak_b, 4); Serial.println(F(", "));
+        Serial.print(F("  ")); Serial.print(c.g_leak_r, 4); Serial.print(F(", ")); Serial.print(c.g_leak_b, 4); Serial.println(F(", "));
+        Serial.print(F("  ")); Serial.print(c.b_leak_r, 4); Serial.print(F(", ")); Serial.print(c.b_leak_g, 4); Serial.println(F(", "));
         Serial.print(F("  ")); Serial.print(c.r_scale, 4);  Serial.print(F(", ")); 
         Serial.print(c.g_scale, 4);  Serial.print(F(", ")); 
         Serial.println(c.b_scale, 4);
