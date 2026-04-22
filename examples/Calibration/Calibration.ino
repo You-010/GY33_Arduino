@@ -10,6 +10,7 @@
 
 #include <Arduino.h>
 #include <GY33.h>
+#define SAMPLES 5
 
 // --- CONFIGURATION ---
 // Set to 1 for UART mode, 0 for I2C mode
@@ -34,7 +35,7 @@ void runCalibration() {
     // check connection first
     if (sensor.update()) { 
         sensor.setCalibration(helper.start()); 
-        samples = 5; lastSampleTime = millis(); 
+        samples = SAMPLES; lastSampleTime = millis(); 
     } else { Serial.println(F("\n[!] ERROR: Sensor not responding."));
         Serial.println(F("Please check wiring, power and I2C address.")); 
     }
@@ -73,8 +74,9 @@ void loop() {
     if (samples && (millis() - lastSampleTime >= 1000)) {
         if (sensor.update()) {
             GY33_Raw cal = sensor.getCalibrated();
-            Serial.print(F("Sample ")); Serial.print(6 - samples);
-            Serial.print(F("/5 -> R: ")); Serial.print(cal.r);
+            Serial.print(F("Sample ")); Serial.print(SAMPLES+1 - samples);
+            Serial.print(F("/"));Serial.print(SAMPLES);
+            Serial.print(F(" -> R: ")); Serial.print(cal.r);
             Serial.print(F(" G: ")); Serial.print(cal.g);
             Serial.print(F(" B: ")); Serial.println(cal.b);
             
