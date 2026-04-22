@@ -40,9 +40,8 @@ public:
     virtual void calibrateWhiteBalance() = 0;
 
     // Software calibration (raw value correction)
-    void calibrateBlack() {
-        _blackOffset = _raw;
-    }
+    GY33_Raw calibrateBlack() { _blackOffset = _raw; return _blackOffset; }    //measure black first
+    void calibrateBlack(const GY33_Raw &b) { _blackOffset = b; }    //set to known value
 
     GY33_Raw getZeroed() {
         return {
