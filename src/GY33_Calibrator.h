@@ -88,13 +88,16 @@ private:
         delay(200); // Wait for sensor to settle after hand movement
     }
 
-    void waitForNewData() {
-        // Works for I2C (immediate) and UART (waits for packet)
-        if (_i2c) {
-            _i2c->queryRaw(); // Hardware specific
-        } else {
-            _uart->queryRaw(); // Hardware specific
-            while(!_uart->update()) yield(); // Wait for serial packet
+    void waitForNewData(uint8_t reads = 5) {
+        while(reads--) {    //stabilisation
+            delay(100);
+            // Works for I2C (immediate) and UART (waits for packet)
+            if (_i2c) {
+                _i2c->queryRaw(); // Hardware specific
+            } else {
+                _uart->queryRaw(); // Hardware specific
+                while(!_uart->update()) yield(); // Wait for serial packet
+            }
         }
     }
 
