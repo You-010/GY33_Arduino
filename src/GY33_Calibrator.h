@@ -84,7 +84,7 @@ private:
         Serial.println(msg);
         Serial.println(F("Press any key in Serial Monitor to capture..."));
         while (Serial.available()) Serial.read(); // Clear buffer
-        while (!Serial.available());              // Wait for input
+        while (!Serial.available()) yield();              // Wait for input
         delay(200); // Wait for sensor to settle after hand movement
     }
 
@@ -94,7 +94,7 @@ private:
             _i2c->queryRaw(); // Hardware specific
         } else {
             _uart->queryRaw(); // Hardware specific
-            while(!_uart->update()); // Wait for serial packet
+            while(!_uart->update()) yield(); // Wait for serial packet
         }
     }
 
