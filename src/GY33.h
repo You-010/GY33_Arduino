@@ -41,7 +41,8 @@ public:
 
     // Software calibration (raw value correction)
     GY33_Raw calibrateBlack() { _blackOffset = _raw; return _blackOffset; }    //measure black first
-    void calibrateBlack(const GY33_Raw &b) { _blackOffset = b; }    //set to known value
+    GY33_Raw calibrateBlack(const GY33_Raw &b) { _blackOffset = b; return _blackOffset; }    //set to known value
+    GY33_Raw getBlackOffset() const { return _blackOffset; }    //read the offset value
 
     GY33_Raw getZeroed() {
         return {
