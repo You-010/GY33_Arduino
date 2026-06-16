@@ -3,6 +3,8 @@
  * Ported to Arduino by me
  * Original MicroPython implementation by QuirkyCort:
  * https://github.com/QuirkyCort/micropython-gy33
+ * This file is free software released under the GNU General Public License v3.0.
+ * See the LICENSE file in the project root for full license terms.
 */
 
 #ifndef GY33_H
