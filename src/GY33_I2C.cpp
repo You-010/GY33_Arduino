@@ -4,15 +4,13 @@
 GY33_I2C::GY33_I2C(uint8_t addr) : _addr(addr) {}
 
 void GY33_I2C::begin(int sda, int scl) {
-    #if defined(ESP32) || defined(ESP8266)
-        if (sda >= 0 && scl >= 0) {
-            Wire.begin(sda, scl);
-        } else {
-            Wire.begin(); //default
-        }
-    #else
-        Wire.begin(); 
+    #if defined(WIRE_HAS_END) && !defined(ESP8266)
+        if (Wire) return;    //stability
     #endif
+    #if defined(ESP32) || defined(ESP8266)
+        if (sda >= 0 && scl >= 0) { Wire.begin(sda, scl); return;}
+    #endif
+    Wire.begin();    //default
 }
 
 void GY33_I2C::writeData(uint8_t r, uint8_t v) {
