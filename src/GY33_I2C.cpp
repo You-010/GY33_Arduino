@@ -3,14 +3,34 @@
 
 GY33_I2C::GY33_I2C(uint8_t addr) : _addr(addr) {}
 
-void GY33_I2C::begin(int sda, int scl) {
-    #if defined(WIRE_HAS_END) && !defined(ESP8266)
-        if (Wire) return;    //stability
+void GY33_I2C::begin() {
+    _wire = &Wire;    //default
+    begin(-1, -1, _wire);
+}
+void GY33_I2C::begin(TwoWire *wire) {
+    _wire = wire;    //don't reinit user's wire
+}
+void GY33_I2C::begin(int sda, int scl, TwoWire *wire) {
+    if (wire == NULL) {
+        wire = &Wire;
+    }
+    _wire = wire;
+
+    #if defined(ESP32)    
+    if (_wire->getClock() > 0) return; // don't change pins if wire was init aleady
+    #elif defined(ESP8266)
+    if (twi_status() == 0) return;
     #endif
+
     #if defined(ESP32) || defined(ESP8266)
-        if (sda >= 0 && scl >= 0) { Wire.begin(sda, scl); return;}
+    if (sda >= 0 && scl >= 0) {
+        _wire->begin(sda, scl);
+    } else {
+        _wire->begin(); // default
+    }
+    #else
+    _wire->begin(); // default 
     #endif
-    Wire.begin();    //default
 }
 
 void GY33_I2C::writeData(uint8_t r, uint8_t v) {
