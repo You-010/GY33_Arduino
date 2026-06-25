@@ -18,6 +18,7 @@ void setup() {
   // For ESP32: you can define the sda and scl pins and use sensor.begin(SDA,SCL); 
   //            sensor.begin() will use hardware defaults
   // For Uno/Nano: sensor.begin();
+  // can also use Wire.begin(); sensor.begin(&Wire); to pass an existing I2C bus 
   sensor.begin();
 
   Serial.println(F("GY-33 I2C Test Started"));
