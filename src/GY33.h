@@ -149,10 +149,14 @@ private:
     bool checkSum(uint8_t incomingChecksum);
 };
 
+class TwoWire;
+
 class GY33_I2C : public GY33_Base {
 public:
     GY33_I2C(uint8_t addr = 0x5A);
-    void begin(int sda = -1, int scl = -1);
+    void begin();
+    void begin(TwoWire *wire);
+    void begin(int sda, int scl, TwoWire *wire = NULL);
     bool update() override;
 
     //Synchronous
@@ -167,6 +171,7 @@ public:
     void calibrateWhiteBalance() override;
 
 private:
+    TwoWire *_wire;
     uint8_t _addr;
     void writeData(uint8_t reg, uint8_t val);
     uint8_t readData(uint8_t reg);
