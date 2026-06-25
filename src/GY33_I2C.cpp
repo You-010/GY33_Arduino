@@ -1,20 +1,18 @@
 #include "GY33.h"
 #include <Wire.h>
 
-GY33_I2C::GY33_I2C(uint8_t addr) : _addr(addr) {}
+GY33_I2C::GY33_I2C(uint8_t addr) : _addr(addr), _wire(&Wire) {}    //default _wire to Wire
 
 void GY33_I2C::begin() {
-    _wire = &Wire;    //default
     begin(-1, -1, _wire);
 }
 void GY33_I2C::begin(TwoWire *wire) {
     _wire = wire;    //don't reinit user's wire
 }
 void GY33_I2C::begin(int sda, int scl, TwoWire *wire) {
-    if (wire == NULL) {
-        wire = &Wire;
+    if (wire != NULL) {
+        _wire = wire;
     }
-    _wire = wire;
 
     #if defined(ESP32)    
     if (_wire->getClock() > 0) return; // don't change pins if wire was init aleady
@@ -34,28 +32,28 @@ void GY33_I2C::begin(int sda, int scl, TwoWire *wire) {
 }
 
 void GY33_I2C::writeData(uint8_t r, uint8_t v) {
-    Wire.beginTransmission(_addr); 
-    Wire.write(r); 
-    Wire.write(v); 
-    Wire.endTransmission();
+    _wire->beginTransmission(_addr); 
+    _wire->write(r); 
+    _wire->write(v); 
+    _wire->endTransmission();
 }
 
 uint8_t GY33_I2C::readData(uint8_t r) {
-    Wire.beginTransmission(_addr); 
-    Wire.write(r); 
-    Wire.endTransmission(false);
-    Wire.requestFrom(_addr, (uint8_t)1); 
-    return Wire.available() ? Wire.read() : 0;
+    _wire->beginTransmission(_addr); 
+    _wire->write(r); 
+    _wire->endTransmission(false);
+    _wire->requestFrom(_addr, (uint8_t)1); 
+    return _wire->available() ? _wire->read() : 0;
 }
 
 bool GY33_I2C::readData(uint8_t reg, uint8_t len, uint8_t* buffer) {
-    Wire.beginTransmission(_addr);
-    Wire.write(reg);
-    if (Wire.endTransmission(false) != 0) return false;
+    _wire->beginTransmission(_addr);
+    _wire->write(reg);
+    if (_wire->endTransmission(false) != 0) return false;
     
-    Wire.requestFrom(_addr, len);
-    if (Wire.available() == len) {
-        for (uint8_t i = 0; i < len; i++) buffer[i] = Wire.read();
+    _wire->requestFrom(_addr, len);
+    if (_wire->available() == len) {
+        for (uint8_t i = 0; i < len; i++) buffer[i] = _wire->read();
         return true;
     }
     return false;
